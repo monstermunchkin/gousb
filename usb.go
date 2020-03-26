@@ -125,6 +125,8 @@ see the excellent "USB in a nutshell" guide: http://www.beyondlogic.org/usbnutsh
 */
 package gousb
 
+import "github.com/google/gousb/shared"
+
 // Context manages all resources related to USB device handling.
 type Context struct {
 	ctx    *libusbContext
@@ -201,13 +203,13 @@ func (c *Context) OpenDevices(opener func(desc *DeviceDesc) bool) ([]*Device, er
 // If there were any errors during device list traversal, it is possible
 // it will return a non-nil device and non-nil error. A Device.Close() must
 // be called to release the device if the returned device wasn't nil.
-func (c *Context) OpenDeviceWithVIDPID(vid, pid ID) (*Device, error) {
+func (c *Context) OpenDeviceWithVIDPID(vid, pid shared.ID) (*Device, error) {
 	var found bool
 	devs, err := c.OpenDevices(func(desc *DeviceDesc) bool {
 		if found {
 			return false
 		}
-		if desc.Vendor == ID(vid) && desc.Product == ID(pid) {
+		if desc.Vendor == shared.ID(vid) && desc.Product == shared.ID(pid) {
 			found = true
 			return true
 		}

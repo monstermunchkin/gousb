@@ -14,45 +14,45 @@
 
 package usbid
 
-import "github.com/google/gousb"
+import "github.com/google/gousb/shared"
 
 const testDBPath = "testdata/testdb.txt"
 
 var (
-	testDBVendors = map[gousb.ID]*Vendor{
+	testDBVendors = map[shared.ID]*Vendor{
 		0xabcd: {
 			Name: "Vendor One",
-			Product: map[gousb.ID]*Product{
+			Product: map[shared.ID]*Product{
 				0x0123: {Name: "Product One"},
 				0x0124: {Name: "Product Two"},
 			},
 		},
 		0xefef: {
 			Name: "Vendor Two",
-			Product: map[gousb.ID]*Product{
+			Product: map[shared.ID]*Product{
 				0x0aba: {
 					Name: "Product",
-					Interface: map[gousb.ID]string{
+					Interface: map[shared.ID]string{
 						0x12: "Interface One",
 						0x24: "Interface Two",
 					},
 				},
 				0x0abb: {
 					Name: "Product",
-					Interface: map[gousb.ID]string{
+					Interface: map[shared.ID]string{
 						0x12: "Interface",
 					},
 				},
 			},
 		},
 	}
-	testDBClasses = map[gousb.Class]*Class{
+	testDBClasses = map[shared.Class]*Class{
 		0x00: {
 			Name: "(Defined at Interface level)",
 		},
 		0x01: {
 			Name: "Audio",
-			SubClass: map[gousb.Class]*SubClass{
+			SubClass: map[shared.Class]*SubClass{
 				0x01: {Name: "Control Device"},
 				0x02: {Name: "Streaming"},
 				0x03: {Name: "MIDI Streaming"},
@@ -60,11 +60,11 @@ var (
 		},
 		0x02: {
 			Name: "Communications",
-			SubClass: map[gousb.Class]*SubClass{
+			SubClass: map[shared.Class]*SubClass{
 				0x01: {Name: "Direct Line"},
 				0x02: {
 					Name: "Abstract (modem)",
-					Protocol: map[gousb.Protocol]string{
+					Protocol: map[shared.Protocol]string{
 						0x00: "None",
 						0x01: "AT-commands (v.25ter)",
 						0x02: "AT-commands (PCCA101)",

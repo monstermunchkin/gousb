@@ -20,6 +20,8 @@ import (
 	"sort"
 	"sync"
 	"time"
+
+	"github.com/google/gousb/shared"
 )
 
 // DeviceDesc is a representation of a USB device descriptor.
@@ -35,14 +37,14 @@ type DeviceDesc struct {
 	Device BCD // The device version
 
 	// Product information
-	Vendor  ID // The Vendor identifer
-	Product ID // The Product identifier
+	Vendor  shared.ID // The Vendor identifer
+	Product shared.ID // The Product identifier
 
 	// Protocol information
-	Class                Class    // The class of this device
-	SubClass             Class    // The sub-class (within the class) of this device
-	Protocol             Protocol // The protocol (within the sub-class) of this device
-	MaxControlPacketSize int      // Maximum size of the control transfer
+	Class                shared.Class    // The class of this device
+	SubClass             shared.Class    // The sub-class (within the class) of this device
+	Protocol             shared.Protocol // The protocol (within the sub-class) of this device
+	MaxControlPacketSize int             // Maximum size of the control transfer
 
 	// Configuration information
 	Configs map[int]ConfigDesc

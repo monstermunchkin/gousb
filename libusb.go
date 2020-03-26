@@ -21,6 +21,8 @@ import (
 	"sync"
 	"time"
 	"unsafe"
+
+	"github.com/google/gousb/shared"
 )
 
 /*
@@ -235,11 +237,11 @@ func (libusbImpl) getDeviceDesc(d *libusbDevice) (*DeviceDesc, error) {
 		Speed:                Speed(C.libusb_get_device_speed((*C.libusb_device)(d))),
 		Spec:                 BCD(desc.bcdUSB),
 		Device:               BCD(desc.bcdDevice),
-		Vendor:               ID(desc.idVendor),
-		Product:              ID(desc.idProduct),
-		Class:                Class(desc.bDeviceClass),
-		SubClass:             Class(desc.bDeviceSubClass),
-		Protocol:             Protocol(desc.bDeviceProtocol),
+		Vendor:               shared.ID(desc.idVendor),
+		Product:              shared.ID(desc.idProduct),
+		Class:                shared.Class(desc.bDeviceClass),
+		SubClass:             shared.Class(desc.bDeviceSubClass),
+		Protocol:             shared.Protocol(desc.bDeviceProtocol),
 		MaxControlPacketSize: int(desc.bMaxPacketSize0),
 		iManufacturer:        int(desc.iManufacturer),
 		iProduct:             int(desc.iProduct),
@@ -287,9 +289,9 @@ func (libusbImpl) getDeviceDesc(d *libusbDevice) (*DeviceDesc, error) {
 				i := InterfaceSetting{
 					Number:     int(alt.bInterfaceNumber),
 					Alternate:  int(alt.bAlternateSetting),
-					Class:      Class(alt.bInterfaceClass),
-					SubClass:   Class(alt.bInterfaceSubClass),
-					Protocol:   Protocol(alt.bInterfaceProtocol),
+					Class:      shared.Class(alt.bInterfaceClass),
+					SubClass:   shared.Class(alt.bInterfaceSubClass),
+					Protocol:   shared.Protocol(alt.bInterfaceProtocol),
 					iInterface: int(alt.iInterface),
 				}
 				if ifNum != i.Number {

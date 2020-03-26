@@ -21,7 +21,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/gousb"
+	"github.com/google/gousb/shared"
 )
 
 const (
@@ -31,10 +31,10 @@ const (
 
 var (
 	// Vendors stores the vendor and product ID mappings.
-	Vendors map[gousb.ID]*Vendor
+	Vendors map[shared.ID]*Vendor
 
 	// Classes stores the class, subclass and protocol mappings.
-	Classes map[gousb.Class]*Class
+	Classes map[shared.Class]*Class
 )
 
 // LoadFromURL replaces the built-in vendor and class mappings with ones loaded

@@ -22,23 +22,24 @@
 // The bread and butter of this package are the following two functions:
 //   Describe - Pretty-print the vendor and product of a device descriptor
 //   Classify - Pretty-print the class/protocol info for a device/interface
-package usbid
+package gousb
 
 import (
 	"fmt"
 
-	"github.com/google/gousb"
+	"github.com/google/gousb/shared"
+	"github.com/google/gousb/usbid"
 )
 
 // Describe returns a human readable string describing the vendor and product
 // of the given device.
 //
 // The given val must be one of the following:
-//   - *gousb.DeviceDesc       "Product (Vendor)"
+//   - *DeviceDesc       "Product (Vendor)"
 func Describe(val interface{}) string {
 	switch val := val.(type) {
-	case *gousb.DeviceDesc:
-		if v, ok := Vendors[val.Vendor]; ok {
+	case *DeviceDesc:
+		if v, ok := usbid.Vendors[val.Vendor]; ok {
 			if d, ok := v.Product[val.Product]; ok {
 				return fmt.Sprintf("%s (%s)", d, v)
 			}
@@ -53,23 +54,23 @@ func Describe(val interface{}) string {
 // and protocol associated with a device or interface.
 //
 // The given val must be one of the following:
-//   - *gousb.DeviceDesc       "Class (SubClass) Protocol"
-//   - gousb.InterfaceSetup   "IfClass (IfSubClass) IfProtocol"
+//   - *DeviceDesc       "Class (SubClass) Protocol"
+//   - InterfaceSetup   "IfClass (IfSubClass) IfProtocol"
 func Classify(val interface{}) string {
 	var (
-		class, sub gousb.Class
-		proto      gousb.Protocol
+		class, sub shared.Class
+		proto      shared.Protocol
 	)
 	switch val := val.(type) {
-	case *gousb.DeviceDesc:
+	case *DeviceDesc:
 		class, sub, proto = val.Class, val.SubClass, val.Protocol
-	case gousb.InterfaceSetting:
+	case InterfaceSetting:
 		class, sub, proto = val.Class, val.SubClass, val.Protocol
 	default:
 		return fmt.Sprintf("Unknown (%T)", val)
 	}
 
-	if c, ok := Classes[class]; ok {
+	if c, ok := usbid.Classes[class]; ok {
 		if s, ok := c.SubClass[sub]; ok {
 			if p, ok := s.Protocol[proto]; ok {
 				return fmt.Sprintf("%s (%s) %s", c, s, p)

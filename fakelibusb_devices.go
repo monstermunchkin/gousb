@@ -14,6 +14,8 @@
 
 package gousb
 
+import "github.com/google/gousb/shared"
+
 // fake devices connected through the fakeLibusb stack.
 type fakeDevice struct {
 	devDesc *DeviceDesc
@@ -29,11 +31,11 @@ var fakeDevices = []fakeDevice{
 		devDesc: &DeviceDesc{
 			Bus:      1,
 			Address:  1,
-			Port:	  1,
+			Port:     1,
 			Spec:     Version(2, 0),
 			Device:   Version(1, 0),
-			Vendor:   ID(0x9999),
-			Product:  ID(0x0001),
+			Vendor:   shared.ID(0x9999),
+			Product:  shared.ID(0x0001),
 			Protocol: 255,
 			Configs: map[int]ConfigDesc{1: {
 				Number:   1,
@@ -43,7 +45,7 @@ var fakeDevices = []fakeDevice{
 					AltSettings: []InterfaceSetting{{
 						Number:    0,
 						Alternate: 0,
-						Class:     ClassVendorSpec,
+						Class:     shared.ClassVendorSpec,
 						Endpoints: map[EndpointAddress]EndpointDesc{
 							0x01: {
 								Address:       0x01,
@@ -73,11 +75,11 @@ var fakeDevices = []fakeDevice{
 		devDesc: &DeviceDesc{
 			Bus:      1,
 			Address:  2,
-			Port:	  2,
+			Port:     2,
 			Spec:     Version(2, 0),
 			Device:   Version(1, 3),
-			Vendor:   ID(0x8888),
-			Product:  ID(0x0002),
+			Vendor:   shared.ID(0x8888),
+			Product:  shared.ID(0x0002),
 			Protocol: 255,
 			Configs: map[int]ConfigDesc{1: {
 				Number:         1,
@@ -88,7 +90,7 @@ var fakeDevices = []fakeDevice{
 					AltSettings: []InterfaceSetting{{
 						Number:     0,
 						Alternate:  0,
-						Class:      ClassVendorSpec,
+						Class:      shared.ClassVendorSpec,
 						iInterface: 6,
 					}},
 				}, {
@@ -96,7 +98,7 @@ var fakeDevices = []fakeDevice{
 					AltSettings: []InterfaceSetting{{
 						Number:    1,
 						Alternate: 0,
-						Class:     ClassVendorSpec,
+						Class:     shared.ClassVendorSpec,
 						Endpoints: map[EndpointAddress]EndpointDesc{
 							0x05: {
 								Address:       0x05,
@@ -119,7 +121,7 @@ var fakeDevices = []fakeDevice{
 					}, {
 						Number:    1,
 						Alternate: 1,
-						Class:     ClassVendorSpec,
+						Class:     shared.ClassVendorSpec,
 						Endpoints: map[EndpointAddress]EndpointDesc{
 							0x05: {
 								Address:       0x05,
@@ -140,7 +142,7 @@ var fakeDevices = []fakeDevice{
 					}, {
 						Number:    1,
 						Alternate: 2,
-						Class:     ClassVendorSpec,
+						Class:     shared.ClassVendorSpec,
 						Endpoints: map[EndpointAddress]EndpointDesc{
 							0x05: {
 								Address:       0x05,
@@ -181,11 +183,11 @@ var fakeDevices = []fakeDevice{
 		devDesc: &DeviceDesc{
 			Bus:      1,
 			Address:  3,
-			Port:	  3,
+			Port:     3,
 			Spec:     Version(2, 0),
 			Device:   Version(1, 0),
-			Vendor:   ID(0x1111),
-			Product:  ID(0x1111),
+			Vendor:   shared.ID(0x1111),
+			Product:  shared.ID(0x1111),
 			Protocol: 255,
 			Configs: map[int]ConfigDesc{1: {
 				Number:   1,
@@ -195,7 +197,7 @@ var fakeDevices = []fakeDevice{
 					AltSettings: []InterfaceSetting{{
 						Number:    0,
 						Alternate: 0,
-						Class:     ClassVendorSpec,
+						Class:     shared.ClassVendorSpec,
 						Endpoints: map[EndpointAddress]EndpointDesc{
 							0x01: {
 								Address:       0x01,

@@ -18,6 +18,8 @@ package gousb
 import (
 	"fmt"
 	"sort"
+
+	"github.com/google/gousb/shared"
 )
 
 // InterfaceDesc contains information about a USB interface, extracted from
@@ -44,11 +46,11 @@ type InterfaceSetting struct {
 	// Alternate is the number of this alternate setting.
 	Alternate int
 	// Class is the USB-IF (Implementers Forum) class code, as defined by the USB spec.
-	Class Class
+	Class shared.Class
 	// SubClass is the USB-IF (Implementers Forum) subclass code, as defined by the USB spec.
-	SubClass Class
+	SubClass shared.Class
 	// Protocol is USB protocol code, as defined by the USB spe.c
-	Protocol Protocol
+	Protocol shared.Protocol
 	// Endpoints enumerates the endpoints available on this interface with
 	// this alternate setting.
 	Endpoints map[EndpointAddress]EndpointDesc
